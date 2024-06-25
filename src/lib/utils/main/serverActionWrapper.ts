@@ -3,15 +3,8 @@ import { CalledFrom, ServerActionWrapperReturn } from '@/lib/types'
 // Implementation
 export default async function <T, C extends CalledFrom>(
   action: () => Promise<T>,
-  calledFrom: C,
-  connectDatabase: boolean = false
+  calledFrom: C
 ): Promise<ServerActionWrapperReturn<T, C>> {
-  // import connectDB from '@/lib/utils/server/connectDB'
-  if (connectDatabase) {
-    const { default: connectDB } = await import('@/lib/utils/server/connectDB')
-    await connectDB()
-  }
-
   if (calledFrom === 'server')
     // Server call
     return (await action()) as any
