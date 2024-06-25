@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './react-select.css';
+@import './custom-components.css';
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+@font-face {
+  font-family: 'Archivo';
+  src: url('/Archivo-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'PowerGrotesk';
+  src: url('/PowerGrotesk-Regular.ttf') format('truetype');
+}
+
+html {
+  @apply hide-scrollbar;
+  overflow-x: hidden;
+  font-family: 'Archivo';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  min-height: 100vh;
+  padding: 1.5rem;
+  padding-top: 5rem;
+  padding-bottom: 10rem;
+}
+
+.page {
+  @apply flex flex-col max-w-5xl w-full flex-grow mx-auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'PowerGrotesk';
+}
+
+h1 {
+  @apply text-4xl sm:text-5xl font-extrabold;
+}
+
+h2 {
+  @apply text-3xl sm:text-4xl font-bold;
+}
+
+h3 {
+  @apply text-2xl sm:text-3xl font-semibold;
+}
+
+h4 {
+  @apply text-xl sm:text-2xl font-medium;
+}
