@@ -10,13 +10,13 @@ import {
 import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector'
 import { WagmiProvider, createConfig, http } from 'wagmi'
 import { sepolia } from 'viem/chains'
-import utils from '@/lib/utils'
+// import utils from '@/lib/utils'
 import { HttpTransport } from 'viem'
 
 const { cssOverrides, shadowDomOverWrites } = dynamicTheme
 
 const chains = [sepolia] as const,
-  evmNetworks = utils.transform.viemChainsToDynamic(chains),
+  // evmNetworks = utils.transform.viemChainsToDynamic(chains),
   config = createConfig({
     chains: chains,
     multiInjectedProviderDiscovery: false,
@@ -44,9 +44,9 @@ export default function ConnectorProvider({
           environmentId: '6bb89ec9-47d3-4c3a-8fdd-71c8995b9b3a',
           cssOverrides,
           walletConnectors: [EthereumWalletConnectors],
-          overrides: {
-            evmNetworks,
-          },
+          // overrides: {
+          //   evmNetworks,
+          // },
           initialAuthenticationMode: 'connect-only',
         }}
       >

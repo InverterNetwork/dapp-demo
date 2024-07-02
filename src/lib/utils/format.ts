@@ -45,10 +45,47 @@ const unixTimeToDisplay = (date: number) =>
     day: '2-digit',
   }).format(date * 1000)
 
+function prettyName(text?: string): string {
+  const prefixes = ['FM', 'BC', 'LM', 'PC', 'AUT', 'EXT', 'PP']
+
+  if (!text) return '...'
+  if (text === 'ERC20') return text
+
+  let mutableText = text
+
+  const hasPrefix = prefixes.some((prefix) => text.includes(prefix))
+
+  if (hasPrefix) {
+    // if text includes prefixes, remove them and any leading _ and set the new text
+    mutableText = prefixes.reduce((acc, prefix) => {
+      if (text.includes(prefix)) {
+        const regex = new RegExp(`${prefix}_`, 'g')
+        return acc.replace(regex, '')
+      }
+      return acc
+    }, text)
+  }
+
+  if (mutableText.includes('_')) {
+    // Type 2: Replace underscores with spaces and capitalize each word
+    return mutableText
+      .split('_')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ')
+  } else {
+    // Type 1: Insert a space before each uppercase letter and capitalize each word
+    return mutableText
+      .split(/(?=[A-Z])/)
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ')
+  }
+}
+
 export default {
   amountString,
   toCompactNumber,
   compressAddress,
   firstLetterToUpperCase,
   unixTimeToDisplay,
+  prettyName,
 }

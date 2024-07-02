@@ -10,27 +10,25 @@ export function WalletWidget(props: Omit<ButtonProps, 'color' | 'onClick'>) {
   const isHydrated = useIsHydrated()
   const dynamicContext = useDynamicContext()
 
-  const { primaryWallet, isAuthenticated } = dynamicContext
+  const isConnected = dynamicContext.primaryWallet?.connected
+  const address = dynamicContext.primaryWallet?.address
 
-  const address = primaryWallet?.address
-
-  if (!isHydrated || (isAuthenticated && !address))
+  if (!isHydrated || (isConnected && !address))
     if (!isHydrated) return <Loading variant="dots" className="m-auto" />
 
   return (
     <Button
       {...rest}
+      {...(!isConnected && { color: 'primary' })}
       type="button"
       size={!size ? 'sm' : size}
       onClick={() =>
         dynamicContext[
-          !isAuthenticated ? 'setShowAuthFlow' : 'setShowDynamicUserProfile'
+          !isConnected ? 'setShowAuthFlow' : 'setShowDynamicUserProfile'
         ](true)
       }
     >
-      {!isAuthenticated
-        ? 'Connect Wallet'
-        : utils.format.compressAddress(address)}
+      {!isConnected ? 'Connect Wallet' : utils.format.compressAddress(address)}
     </Button>
   )
 }
